@@ -188,10 +188,10 @@ d3.csv("data/data.csv").then((data) => {
       return `<p><b>${k}</b>: ${v}</p><br />`;
     }
     function createAlbumImg(imageURL) {
-      return `<div style="width:300px; height: 300px;"><img src="${imageURL}" style="width: 100%"/></div><br /><br /><br />`;
+      return `<div style="width:200px; height: 200px; background-color: #40414e;"><img src="${imageURL}" style="width: 100%"/></div><br /><br /><br />`;
     }
     function createLyricBox(lyric) {
-      return `<div id='lyricBox'style="width:300px; height: 400px; overflow:scroll">${lyric}</div>`;
+      return `<div id='lyricBox'style="width:200px; height: 300px; overflow:scroll">${lyric}</div>`;
     }
     let songInfoHTML = "";
     // console.log(d.imageURL);
