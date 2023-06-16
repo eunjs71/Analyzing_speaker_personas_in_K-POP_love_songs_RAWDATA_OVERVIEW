@@ -41,6 +41,7 @@ let legend_ps_to_persona_name = {
   legend_ps_9: "수호자",
   legend_ps_10: "지배자",
 };
+
 let legend_fm_to_fm_name = {
   f: "여성",
   m: "남성",
@@ -184,8 +185,8 @@ d3.csv("data/data.csv").then((data) => {
     // console.log(d);
     // console.log(d.title);
     let songInfo = document.getElementById("song_info");
-    function createInfoLine(k, v) {
-      return `<p><b>${k}</b>: ${v}</p><br />`;
+    function createInfoLine(k, v, pc = "") {
+      return `<p class="songDesc"><b>${k}</b>: <span style="color: ${pc}">${v}</span></p>`;
     }
     function createAlbumImg(imageURL) {
       return `<div style="width:200px; height: 200px; background-color: #40414e;"><img src="${imageURL}" style="width: 100%"/></div><br /><br /><br />`;
@@ -200,8 +201,15 @@ d3.csv("data/data.csv").then((data) => {
     songInfoHTML += createInfoLine("가수", d.Singer);
     songInfoHTML += createInfoLine("남/여", d.FM);
     songInfoHTML += createInfoLine("애플 뮤직 연도", d.AppleMusicYear);
-    songInfoHTML += createInfoLine("능동", d.Active);
-    songInfoHTML += createInfoLine("주체", d.Subject);
+    let floatActive = parseFloat(d.Active);
+    let floatSubject = parseFloat(d.Subject);
+    let activeSubject = `${floatActive.toFixed(2)}, ${floatSubject.toFixed(2)}`;
+    songInfoHTML += createInfoLine("능동, 주체", activeSubject);
+    let pc = "";
+    if (d.Persona !== "") {
+      pc = personaColor[d.Persona];
+    }
+    songInfoHTML += createInfoLine("페르소나", d.Persona, pc);
     songInfoHTML += createInfoLine("가사", "");
     let replacedLyrics = d.Lyrics.replace(/\n/g, "<br />");
     songInfoHTML += createLyricBox(replacedLyrics);
