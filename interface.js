@@ -1,6 +1,7 @@
 let current_color_code = "FM";
 let data_by_year = false;
 let current_year = 2022;
+let current_clicked = "";
 
 function interfaceSetup() {
   const legend_fm_m = document.getElementById("legend_fm_m");
@@ -20,8 +21,30 @@ function interfaceSetup() {
   };
   const highlightOff = (e) => {
     if (!data_by_year) {
-      graphFunctions["highlight_off"]();
-      e.currentTarget.style.backgroundColor = "";
+      let legend_id = e.currentTarget.id;
+      if (current_clicked === "") {
+        graphFunctions["highlight_off"]();
+        e.currentTarget.style.backgroundColor = "";
+      } else if (legend_id !== current_clicked) {
+        graphFunctions[`highlight_on_${current_clicked}`]();
+        e.currentTarget.style.backgroundColor = "";
+      }
+    }
+  };
+  const onClickLegend = (e) => {
+    let legend_id = e.currentTarget.id;
+    for (let legend of legends) {
+      if (legend_id !== legend.id) {
+        console.log(legend);
+        legend.style.backgroundColor = "";
+      }
+    }
+    if (current_clicked === "") {
+      current_clicked = legend_id;
+    } else if (current_clicked !== legend_id) {
+      current_clicked = legend_id;
+    } else {
+      current_clicked = "";
     }
   };
 
@@ -29,6 +52,7 @@ function interfaceSetup() {
     console.log(legend.id);
     legend.addEventListener("mouseover", highlightOn);
     legend.addEventListener("mouseleave", highlightOff);
+    legend.addEventListener("click", onClickLegend);
   });
 
   const ccFM = document.getElementById("ccFM");
