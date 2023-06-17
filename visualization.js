@@ -212,7 +212,7 @@ d3.csv("data/data.csv").then((data) => {
     } else {
       personaStr = "-";
     }
-    songInfoHTML += createInfoLine("페르소나", dpersonaStr, pc);
+    songInfoHTML += createInfoLine("페르소나", personaStr, pc);
     songInfoHTML += createInfoLine("가사", "");
     let replacedLyrics = d.Lyrics.replace(/\n/g, "<br />");
     songInfoHTML += createLyricBox(replacedLyrics);
