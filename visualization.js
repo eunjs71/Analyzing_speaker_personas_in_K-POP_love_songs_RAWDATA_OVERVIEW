@@ -206,10 +206,13 @@ d3.csv("data/data.csv").then((data) => {
     let activeSubject = `${floatActive.toFixed(2)}, ${floatSubject.toFixed(2)}`;
     songInfoHTML += createInfoLine("능동, 주체", activeSubject);
     let pc = "";
+    let personaStr = d.Persona;
     if (d.Persona !== "") {
       pc = personaColor[d.Persona];
+    } else {
+      personaStr = "-";
     }
-    songInfoHTML += createInfoLine("페르소나", d.Persona, pc);
+    songInfoHTML += createInfoLine("페르소나", dpersonaStr, pc);
     songInfoHTML += createInfoLine("가사", "");
     let replacedLyrics = d.Lyrics.replace(/\n/g, "<br />");
     songInfoHTML += createLyricBox(replacedLyrics);
